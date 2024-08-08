@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Navbar from "@/components/layout/Navbar";
 import AppProvider from "@/components/providers/AppProvider";
 import "./globals.css";
 
@@ -18,7 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppProvider>{children}</AppProvider>
+        <AppProvider>
+          <Navbar />
+          <main className="flex items-center justify-center min-h-screen px-8 md:px-16">
+            {children}
+          </main>
+        </AppProvider>
       </body>
     </html>
   );
