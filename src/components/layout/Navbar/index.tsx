@@ -1,15 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+
 import { Separator } from "../../ui/separator";
 import { Button } from "../../ui/button";
-import { useSession } from "next-auth/react";
 import Sidebar from "./Sidebar";
+import { FiSearch } from "react-icons/fi";
+import Wrapper from "@/components/ui/Wrapper";
+import BottomNavbar from "./BottomNavbar";
 
 const Navbar = () => {
   const { data } = useSession();
 
-  const NavProfileSection = () => {
+  const NavItems = () => {
     return (
       <>
         {data?.user ? (
@@ -20,22 +24,15 @@ const Navbar = () => {
             email={data.user.email!}
           />
         ) : (
-          <section className="flex items-center gap-3">
-            <Link href="/sign-in">
-              <Button variant="secondary" size="sm">
-                Sign in
-              </Button>
+          <Wrapper className="gap-3">
+            <Link href="/sign-up" className="hover:underline">
+              Sign up
             </Link>
-            <Separator
-              orientation="vertical"
-              className="h-8 text-secondary rotate-[15deg]"
-            />
-            <Link href="/sign-up">
-              <Button variant="outline" size="sm">
-                Sign up
-              </Button>
+            <Separator orientation="vertical" className="h-6 rotate-[15deg]" />
+            <Link href="/sign-in" className="hover:underline">
+              Sign in
             </Link>
-          </section>
+          </Wrapper>
         )}
       </>
     );
@@ -45,8 +42,12 @@ const Navbar = () => {
     <header className="fixed top-0 z-10 w-full bg-background border-b">
       <nav className="w-full relative flex items-center justify-between px-8 py-3 backdrop-blur">
         <p>icon</p>
-        <NavProfileSection />
+
+        <NavItems />
       </nav>
+
+      {/* Bottom navigaion bar for mobile */}
+      <BottomNavbar />
     </header>
   );
 };
